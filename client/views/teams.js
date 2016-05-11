@@ -1,5 +1,5 @@
 Template.teams.helpers({
-  teams: [
+  teams: function() {
     return Teams.find();
-  ]
+  }
 });
