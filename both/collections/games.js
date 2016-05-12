@@ -12,3 +12,30 @@ Games.allow({
   },
   fetch: ['ownerId']
 });
+
+Games.methods({
+  gamesInsert: function(teamOneId, teamTwoId) {
+    var teamOne = Teams.findOne({_id: teamOneId});
+    var teamTwo = Teams.findOne({_id: teamTwoId});
+
+    var teamOneData = {
+      _id: teamOne._id,
+      name: teamOne.name,
+      score: 0
+    };
+
+    var game = {
+      ownerId: Meteor.userId(),
+      createdAt: new Date(),
+      teams: [teamOneData, teamTwoData],
+      completed: false
+    };
+
+    var gameId = Games.insert(game);
+
+    Teams.update({_id: teamOneData._id}, {$addToSet: {gameIds: gameId}});
+    Teams.update({_id: teamTwoData._id}, {$addToSet: {gameIds: gameId}});
+
+    return gameId;
+  }
+})
