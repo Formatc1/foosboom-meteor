@@ -1,17 +1,28 @@
 Meteor.startup(function() {
-  if (Teams.find().count() === 0) {
+  var dummyUserEmail = 'test@test.com';
+
+  if (Meteor.users.find({'emails.address': dummyUserEmail}).count() == 0) {
+
+    var ownerId = Accounts.createUser({
+      email: dummyUserEmail,
+      password: 'adam'
+    });
+
     [
       {
         name: "Barcelona",
-        gameIds: []
+        gameIds: [],
+        ownerId: ownerId
       },
       {
         name: "Real Madrid",
-        gameIds: []
+        gameIds: [],
+        ownerId: ownerId
       },
       {
         name: "My team",
-        gameIds: []
+        gameIds: [],
+        ownerId: ownerId
       }
     ].forEach(function(team){
       Teams.insert(team);
