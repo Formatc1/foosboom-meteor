@@ -1,5 +1,20 @@
 <template name="layout">
   <h1>Foosboom</h1>
+  <style>
+    .active a {
+      color: black;
+      text-decoration: none;
+      border: 1px solid black;
+    }
+  </style>
+  <ul>
+    <li class="{{isActiveRoute 'games'}}">
+      <a href="/">Games</a>
+    </li>
+    <li class="{{isActiveRoute 'teams'}}">
+      <a href="/teams">Teams</a>
+    </li>
+  </ul>
 
   {{> loginButtons}}
   {{> yield }}

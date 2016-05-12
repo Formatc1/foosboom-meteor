@@ -1,5 +1,16 @@
 Router.configure({
-  layoutTemplate: 'layout'
+  layoutTemplate: 'layout',
+  loadingTemplate: 'loading'
 });
 
-Router.route('/', 'games');
+Router.route('/', {
+  name: 'games',
+  waitOn: function() {
+    return [Meteor.subscribe('games'), Meteor.subscribe('teams')];
+  }
+});
+Router.route('/teams', {
+  waitOn: function() {
+    return Meteor.subscribe('teams');
+  }
+});
