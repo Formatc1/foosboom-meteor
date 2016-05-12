@@ -23,8 +23,8 @@ Template.teams.events({
 
     var team = {
       name: tpl.$('input[name=name]').val(),
-      ownerId: Meteor.userId();
-    }
+      ownerId: Meteor.userId()
+    };
 
     Teams.insert(team, function(error, _id) {
       if (error) {
