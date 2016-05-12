@@ -16,18 +16,14 @@ Template.team.events({
     var self = this;
 
     if(teamName.length){
-      Teams.update(this._id, {$set: {name: teamName}},function(error) {
-        if (!error) {
-          var games = Games.find({_id: {$in: self.gameIds}});
-          if (games.count()) {
-            _(games.fetch()).each(function(game) {
-              var team = _(game.teams).findWhere({_id: self._id});
-              if (team != null) {
-                team.name = teamName;
-                Games.update({_id: game._id}, {$set: {teams: game.teams}});
-              }
-            });
-          }
+      Meteor.call('teamUpdate', this._id, teamName, function(error) {
+        if (error) {
+          alert(error.reason);
+          Session.set('editedTeamId', self._id);
+          Tracker.afterFlush(function() {
+            tpl.$('input[name=name]').val(teamName);
+            tpl.$('input[name=name]').focus();
+          });
         }
       });
 
