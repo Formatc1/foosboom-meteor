@@ -31,10 +31,5 @@ Template.teams.events({
       }
     });
     Session.set('isCreatingTeam', false);
-  },
-
-  'click a.remove': function(e, tpl) {
-    e.preventDefault();
-    Teams.remove(this._id);
   }
 })
