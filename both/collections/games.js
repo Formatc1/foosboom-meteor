@@ -32,6 +32,12 @@ Meteor.methods({
       score: 0
     };
 
+    var teamTwoData = {
+      _id: teamTwo._id,
+      name: teamTwo.name,
+      score: 0
+    };
+
     var game = {
       ownerId: Meteor.userId(),
       teams: [teamOneData, teamTwoData],
