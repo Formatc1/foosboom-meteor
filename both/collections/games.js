@@ -13,7 +13,7 @@ Games.allow({
   fetch: ['ownerId']
 });
 
-Games.methods({
+Meteor.methods({
   gamesInsert: function(teamOneId, teamTwoId) {
     check(Meteor.userId(), String);
     check(teamOneId, String);
