@@ -9,23 +9,11 @@ Template.game.events({
     Games.remove(this._id);
   },
 
-  'click a.one-plus': function(e, tpl) {
+  'click a.score': function(e, tpl) {
     e.preventDefault();
-    Games.update({_id: this._id}, {$inc: {'teams.0.score': 1}});
-  },
-
-  'click a.two-plus': function(e, tpl) {
-    e.preventDefault();
-    Games.update({_id: this._id}, {$inc: {'teams.1.score': 1}});
-  },
-
-  'click a.one-minus': function(e, tpl) {
-    e.preventDefault();
-    Games.update({_id: this._id}, {$inc: {'teams.0.score': -1}});
-  },
-
-  'click a.two-minus': function(e, tpl) {
-    e.preventDefault();
-    Games.update({_id: this._id}, {$inc: {'teams.1.score': -1}});
-  }
+    var data = $(e.currentTarget).data();
+    var update = {$inc: {}};
+    var selector = "teams." + data.index + ".score";
+    update.$inc[selector] = data.inc;
+    Games.update({_id: this._id}, update);
 });
