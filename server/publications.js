@@ -3,5 +3,5 @@ Meteor.publish('teams', function() {
 })
 
 Meteor.publish('games', function() {
-  return Games.find();
+  return Games.find({ownerId: this.userId});
 })
